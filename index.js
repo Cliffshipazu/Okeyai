@@ -20,11 +20,7 @@ app.get('/okeyai', async (req, res) => {
     try {
         const response = await axios.get(url, { params });
         const data = response.data;
-
-        // Print the entire JSON response for debugging
         console.log("Full JSON Response:", data);
-
-        // Accessing specific data if available
         const status = data.status;
         const model = data.model;
         const description = data.description;
@@ -35,8 +31,6 @@ app.get('/okeyai', async (req, res) => {
         const developer = data.developer;
         const response_text = data.response;
         const api_key = data.API_KEY;
-
-        // Printing out the values (you can handle or use these values as needed)
         console.log(`Status: ${status}`);
         console.log(`Model: ${model}`);
         console.log(`Description: ${description}`);
@@ -51,16 +45,12 @@ app.get('/okeyai', async (req, res) => {
         return res.status(200).json(data);
     } catch (error) {
         if (error.response) {
-            // The request was made, but the server responded with a status code
-            // that falls out of the range of 2xx
             console.error('Error response:', error.response.data);
             return res.status(error.response.status).json({ error: error.response.data });
         } else if (error.request) {
-            // The request was made, but no response was received
             console.error('Error request:', error.request);
             return res.status(500).json({ error: 'No response received from API.' });
         } else {
-            // Something happened in setting up the request that triggered an Error
             console.error('Error', error.message);
             return res.status(500).json({ error: error.message });
         }
