@@ -2,61 +2,56 @@ const express = require('express');
 const axios = require('axios');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-app.get('/okeyai', async (req, res) => {
-    const ask = req.query.ask;
+app.get('/hastebin', async (req, res) => {
+    const data = req.query.upload;
 
-    if (!ask) {
-        return res.status(400).json({ error: 'Query parameter "ask" is required.' });
+    if (!data) {
+        return res.status(400).json({ message: 'query upload string is missing' });
     }
 
-    const url = "https://api-okeymeta.vercel.app/api/ssailm/model/okeyai2.0-basic/okeyai";
-    const params = {
-        ask: ask,
-        apiKey: "okeymeta-wzPaWgcbThWqSOc4Lb4THello"
+    const url = 'https://hastebin.skyra.pw/documents';
+    const headers = {
+        'authority': 'hastebin.skyra.pw',
+        'accept': 'application/json',
+        'accept-language': 'en-US,en;q=0.9',
+        'content-type': 'text/plain',
+        'origin': 'https://hastebin.skyra.pw',
+        'referer': 'https://hastebin.skyra.pw/',
+        'sec-ch-ua': '"Not-A.Brand";v="99", "Chromium";v="124"',
+        'sec-ch-ua-mobile': '?1',
+        'sec-ch-ua-platform': '"Android"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36'
     };
 
     try {
-        const response = await axios.get(url, { params });
-        const data = response.data;
-        console.log("Full JSON Response:", data);
-        const status = data.status;
-        const model = data.model;
-        const description = data.description;
-        const max_token = data.max_token;
-        const max_context_length = data.max_context_length;
-        const version = data.version;
-        const team = data.team;
-        const developer = data.developer;
-        const response_text = data.response;
-        const api_key = data.API_KEY;
-        console.log(`Status: ${status}`);
-        console.log(`Model: ${model}`);
-        console.log(`Description: ${description}`);
-        console.log(`Max Token: ${max_token}`);
-        console.log(`Max Context Length: ${max_context_length}`);
-        console.log(`Version: ${version}`);
-        console.log(`Team: ${team}`);
-        console.log(`Developer: ${developer}`);
-        console.log(`Response: ${response_text}`);
-        console.log(`API Key: ${api_key}`);
+        const response = await axios.post(url, data, { headers });
+        const documentKey = response.data.key;
 
-        return res.status(200).json(data);
-    } catch (error) {
-        if (error.response) {
-            console.error('Error response:', error.response.data);
-            return res.status(error.response.status).json({ error: error.response.data });
-        } else if (error.request) {
-            console.error('Error request:', error.request);
-            return res.status(500).json({ error: 'No response received from API.' });
+        if (documentKey) {
+            const documentUrls = {
+                status: "200",
+                message: 'Document uploaded successfully',
+                author: 'cliff',
+                php: `https://hastebin.skyra.pw/${documentKey}.php`,
+                csharp: `https://hastebin.skyra.pw/${documentKey}.csharp`,
+                ts: `https://hastebin.skyra.pw/${documentKey}.ts`,
+                css: `https://hastebin.skyra.pw/${documentKey}.css`,
+                js: `https://hastebin.skyra.pw/${documentKey}.js`,  
+            };
+            res.status(200).json(documentUrls);
         } else {
-            console.error('Error', error.message);
-            return res.status(500).json({ error: error.message });
+            res.status(500).json({ message: 'skills issue Failed to upload the document' });
         }
+    } catch (error) {
+        res.status(500).json({ message: 'skills issue Error uploading the document', error: error.message });
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
