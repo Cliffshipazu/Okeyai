@@ -42,6 +42,7 @@ app.get('/hastebin', async (req, res) => {
                 ts: `https://hastebin.skyra.pw/${documentKey}.ts`,
                 css: `https://hastebin.skyra.pw/${documentKey}.css`,
                 js: `https://hastebin.skyra.pw/${documentKey}.js`,  
+                kotlin: `https://hastebin.skyra.pw/${documentKey}.kotlin`,  
             };
             res.status(200).json(documentUrls);
         } else {
