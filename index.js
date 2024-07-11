@@ -1,8 +1,10 @@
 const express = require('express');
 const axios = require('axios');
+const cheerio = require('cheerio');
+const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3000;
+app.use(bodyParser.json());
 
 app.get('/hastebin', async (req, res) => {
     const data = req.query.upload;
@@ -53,6 +55,54 @@ app.get('/hastebin', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+async function findUid(link) {
+    try {
+        const response = await axios.post(
+            'https://seomagnifier.com/fbid',
+            new URLSearchParams({
+                'facebook': '1',
+                'sitelink': link
+            }),
+            {
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Cookie': 'PHPSESSID=0d8feddd151431cf35ccb0522b056dc6'
+                }
+            }
+        );
+        const id = response.data;
+        if (isNaN(id)) {
+            const html = await axios.get(link);
+            const $ = cheerio.load(html.data);
+            const el = $('meta[property="al:android:url"]').attr('content');
+            if (!el) {
+                throw new Error('UID not found');
+            }
+            const number = el.split('/').pop();
+            return number;
+        }
+        return id;
+    } catch (error) {
+        throw new Error('An unexpected error occurred. Please try again.');
+    }
+}
+
+app.get('/uid', async (req, res) => {
+    const { fblink } = req.query;
+    if (!fblink) {
+        return res.status(400).json({ error: 'Missing fblink query parameter' });
+    }
+
+    try {
+        const uid = await findUid(fblink);
+        res.status(200).json({ uid });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
