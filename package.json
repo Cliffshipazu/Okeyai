@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ozrageharm/blackbox-ai": "^1.1.1",
     "@types/node": "^18.0.6",
     "axios": "^1.7.2",
     "body-parser": "^1.20.2",

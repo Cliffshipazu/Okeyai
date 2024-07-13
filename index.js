@@ -157,6 +157,23 @@ app.get('/neo', async (req, res) => {
     }
 });
 
+const blackbox = require('@ozrageharm/blackbox-ai');
+
+app.get('/blackbox', async (req, res) => {
+    const question = req.query.question;
+
+    if (!question) {
+        return res.status(400).json({ error: 'Question query parameter is required' });
+    }
+
+    try {
+        const output = await blackbox.chat(question, 'index.js');
+        res.status(200).json({ blackbox: output.data });
+    } catch (error) {
+        res.status(500).json({ error: 'Error skills issue', details: error.message });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
