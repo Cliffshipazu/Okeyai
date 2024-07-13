@@ -113,12 +113,12 @@ app.get('/neo', async (req, res) => {
     const payload = {
         messages: [
             {
-                id: "qrl05dw",
+                id: "qucxWkG",
                 content: copilot,
                 role: "user"
             }
         ],
-        id: "qrl05dw",
+        id: "qucxWkG",
         enhancePrompt: false,
         useFunctions: false
     };
@@ -126,30 +126,20 @@ app.get('/neo', async (req, res) => {
     try {
         const response = await axios.post('https://www.whiterabbitneo.com/api/chat', payload, {
             headers: {
-                'Accept-Encoding':
-'gzip, deflate, br, zstd',
-                'Accept-Language':
-'en-US,en;q=0.9',
-                'Content-Type': 'text/plain;charset=UTF-8',
-                'Cookie': 
-                    '__Host-next-auth.csrf-token=12cc33a0ac7ae7fd8a82e6c582f83db80cf845e4f70b65f4fbed0bd47372b3c1%7C403c14cda39ebd98f5adbabb206f55dc7f34739541d16f764e90fe44bba6de68; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.whiterabbitneo.com; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..A5U0FA_kBTBqLs-u.wQoSskbTb60RDQz1vdCoaKltFGLaz7OA-0Ca_gFeDmh3bzVZkxxHeT3C5ux1oTVWmMHBv30Kh013IRUMk6oTO6CVUzkmbRevQWXNQo1kxX2mwZdsaHAOsokOjDpgW6sQW0OxkPHFBeHNqlYC-1a7MoVnWIlqgtFGRQbtLTJcFnuYTzxB9x1WXPvNi8VZJmoBU3WXKsEdv5xaf8RI6gYYg_cXWLvr9ccUox5X8OVL4Bqwb66h0XbthBSeMrNxQT8cyRFXUK118OStGuGPtLMKodRpLT6K3htlL6iyQN4hHK92Nyz2NUcN0dK6_vP6jRackJOq8ZtRkreRvNDgo0USh1foDZzSNvs4Jc-7GQOTql9EOw0JcA8pdu3tnxL77nOR49TQrXNaAjHs_g.QaTxuEBBv1Dd_AT9rYdPCA',
-                'Origin':
-                'https://www.whiterabbitneo.com',
-                'Priority':
-                'u=1, i',
-                'Referer':               'https://www.whiterabbitneo.com/',
-                'Sec-Ch-Ua-Mobile':
-                '?0',
-                'Sec-Ch-Ua-Platform':
-                "Windows",
-                'Sec-Fetch-Dest':
-                'empty',
-                'Sec-Fetch-Mode':
-                'cors',
-                'Sec-Fetch-Site':
-                'same-origin',
-                'User-Agent':
-                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+                'authority': 'www.whiterabbitneo.com',
+                'accept': '*/*',
+                'accept-language': 'en-US,en;q=0.9',
+                'content-type': 'text/plain;charset=UTF-8',
+                'cookie': '__Host-next-auth.csrf-token=5c05f84fc8e29b1d30de0b9a69afae0ab7337b39fca6765993b31032feb3e1c3%7Ca6277e613bcbde13c942c643fd72291b39dee1596a03ca7695720a2ec2801fcd; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.whiterabbitneo.com%2F; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..IhuV0dMI3kx1juK3.J_3ZSOOA5hMRIYgw0R8-ztS9FoAmXNQppACPenVKAJg5N9V1fFdRvCDUxjU5jOt3Jflucfv-VtiXcgMLsqpA3zrV-av5ZsFVYa026xpIeKafAbIwIVqPDbVHySFRNMij-vegqq-2fS2C2w_ipN9P_-UJmy99qgOBJb1AD2UJY8ybicGbSFf1MqDRw7jXaWQM46j0XFybzYqUEckyEKI4KV6iYb7h__tgYyJgKtbshNCZ-3Q1LPQRvDsk0L8j9c_HhCWgclx3LBRt7YJvRk3E2gaOpG1o-GiVGQhi6G0i2JQnmhqpx5CxxeUVgsiSdAB9Oy9JqXLeoMPwgWKWfTqFXjTfM7jDrCbufh3YRmhirrFtGkXzqhDFnv5pWLLbM1OH6vewuLO7pseuED38z4JZdWlua4x4vWUUhe7an8hkMyMdxFMTZjR1SjiDsOZK0bV91mmSm8OXwYbOn4vLUCORBRUl33qikJgiKLc_XtwfLCyFgEacrx45Nwr7tsODfQ.mnmy_2XO3As6AmJ47jyJcw',
+                'origin': 'https://www.whiterabbitneo.com',
+                'referer': 'https://www.whiterabbitneo.com/',
+                'sec-ch-ua': '"Not-A.Brand";v="99", "Chromium";v="124"',
+                'sec-ch-ua-mobile': '?1',
+                'sec-ch-ua-platform': '"Android"',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'same-origin',
+                'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36'
             }
         });
 
