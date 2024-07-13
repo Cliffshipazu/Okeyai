@@ -167,7 +167,7 @@ app.get('/blackbox', async (req, res) => {
     }
 
     try {
-        const output = await blackbox.chat(question, 'index.js');
+        const output = await blackbox.chat(question);
         res.status(200).json({ blackbox: output.data });
     } catch (error) {
         res.status(500).json({ error: 'Error skills issue', details: error.message });
