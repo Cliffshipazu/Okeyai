@@ -101,8 +101,69 @@ app.get('/uid', async (req, res) => {
     }
 });
 
+app.use(express.json());
+
+app.get('/neo', async (req, res) => {
+    const copilot = req.query.copilot;
+
+    if (!copilot) {
+        return res.status(400).json({ error: 'Copilot query parameter is required' });
+    }
+
+    const payload = {
+        messages: [
+            {
+                id: "qrl05dw",
+                content: copilot,
+                role: "user"
+            }
+        ],
+        id: "qrl05dw",
+        enhancePrompt: false,
+        useFunctions: false
+    };
+
+    try {
+        const response = await axios.post('https://www.whiterabbitneo.com/api/chat', payload, {
+            headers: {
+                'Content-Type': 'text/plain;charset=UTF-8',
+                'Cookie': 
+                    '__Host-next-auth.csrf-token=12cc33a0ac7ae7fd8a82e6c582f83db80cf845e4f70b65f4fbed0bd47372b3c1%7C403c14cda39ebd98f5adbabb206f55dc7f34739541d16f764e90fe44bba6de68; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.whiterabbitneo.com; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..A5U0FA_kBTBqLs-u.wQoSskbTb60RDQz1vdCoaKltFGLaz7OA-0Ca_gFeDmh3bzVZkxxHeT3C5ux1oTVWmMHBv30Kh013IRUMk6oTO6CVUzkmbRevQWXNQo1kxX2mwZdsaHAOsokOjDpgW6sQW0OxkPHFBeHNqlYC-1a7MoVnWIlqgtFGRQbtLTJcFnuYTzxB9x1WXPvNi8VZJmoBU3WXKsEdv5xaf8RI6gYYg_cXWLvr9ccUox5X8OVL4Bqwb66h0XbthBSeMrNxQT8cyRFXUK118OStGuGPtLMKodRpLT6K3htlL6iyQN4hHK92Nyz2NUcN0dK6_vP6jRackJOq8ZtRkreRvNDgo0USh1foDZzSNvs4Jc-7GQOTql9EOw0JcA8pdu3tnxL77nOR49TQrXNaAjHs_g.QaTxuEBBv1Dd_AT9rYdPCA',
+                'Origin':
+                'https://www.whiterabbitneo.com',
+                'Priority':
+                'u=1, i',
+                'Referer':               'https://www.whiterabbitneo.com/',
+                'Sec-Ch-Ua-Mobile':
+                '?0',
+                'Sec-Ch-Ua-Platform':
+                "Windows",
+                'Sec-Fetch-Dest':
+                'empty',
+                'Sec-Fetch-Mode':
+                'cors',
+                'Sec-Fetch-Site':
+                'same-origin',
+                'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+            }
+        });
+
+       res.status(200).json({cyberRabbit: response.data});
+    } catch (error) {
+        if (error.response) {
+            res.status(error.response.status).json({ error: error.response.statusText });
+        } else if (error.request) {
+
+            res.status(500).json('Suspended by owner');
+        } else {
+
+            res.status(500).json({ error: 'Error limit request' });
+        }
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
