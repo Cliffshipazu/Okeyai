@@ -126,6 +126,10 @@ app.get('/neo', async (req, res) => {
     try {
         const response = await axios.post('https://www.whiterabbitneo.com/api/chat', payload, {
             headers: {
+                'Accept-Encoding':
+'gzip, deflate, br, zstd',
+                'Accept-Language':
+'en-US,en;q=0.9',
                 'Content-Type': 'text/plain;charset=UTF-8',
                 'Cookie': 
                     '__Host-next-auth.csrf-token=12cc33a0ac7ae7fd8a82e6c582f83db80cf845e4f70b65f4fbed0bd47372b3c1%7C403c14cda39ebd98f5adbabb206f55dc7f34739541d16f764e90fe44bba6de68; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.whiterabbitneo.com; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..A5U0FA_kBTBqLs-u.wQoSskbTb60RDQz1vdCoaKltFGLaz7OA-0Ca_gFeDmh3bzVZkxxHeT3C5ux1oTVWmMHBv30Kh013IRUMk6oTO6CVUzkmbRevQWXNQo1kxX2mwZdsaHAOsokOjDpgW6sQW0OxkPHFBeHNqlYC-1a7MoVnWIlqgtFGRQbtLTJcFnuYTzxB9x1WXPvNi8VZJmoBU3WXKsEdv5xaf8RI6gYYg_cXWLvr9ccUox5X8OVL4Bqwb66h0XbthBSeMrNxQT8cyRFXUK118OStGuGPtLMKodRpLT6K3htlL6iyQN4hHK92Nyz2NUcN0dK6_vP6jRackJOq8ZtRkreRvNDgo0USh1foDZzSNvs4Jc-7GQOTql9EOw0JcA8pdu3tnxL77nOR49TQrXNaAjHs_g.QaTxuEBBv1Dd_AT9rYdPCA',
